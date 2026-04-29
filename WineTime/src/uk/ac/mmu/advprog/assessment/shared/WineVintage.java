@@ -3,7 +3,7 @@ package uk.ac.mmu.advprog.assessment.shared;
 public class WineVintage {
 	private int wine_id;
 	private int year;
-	
+
 	public WineVintage(int wine_id, int year) {
 		super();
 		this.wine_id = wine_id;

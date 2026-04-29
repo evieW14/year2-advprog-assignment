@@ -9,7 +9,7 @@ public class Wine {
 	private String acidity;
 	private String body;
 	private int winery_id;
-	
+
 	public Wine(int id, String name, String type, String blend_type, double abv, String acidity, String body,
 			int winery_id) {
 		super();
@@ -22,7 +22,7 @@ public class Wine {
 		this.body = body;
 		this.winery_id = winery_id;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

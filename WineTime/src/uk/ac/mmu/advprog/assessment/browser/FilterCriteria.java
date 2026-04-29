@@ -8,6 +8,7 @@ public class FilterCriteria {
     public String blend;
     public String grape;
     public Double abv;
+    public String abvOperator;
     public String body;
     public String acidity;
 }

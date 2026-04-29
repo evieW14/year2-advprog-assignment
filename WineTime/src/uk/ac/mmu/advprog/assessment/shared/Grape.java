@@ -3,7 +3,7 @@ package uk.ac.mmu.advprog.assessment.shared;
 public class Grape {
 	private int id;
 	private String name;
-	
+
 	public Grape(int id, String name) {
 		super();
 		this.id = id;

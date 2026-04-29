@@ -19,32 +19,42 @@ public class ResultsPanel extends JPanel {
 
 	public ResultsPanel(WineApp wineApp) {
 		this.wineApp = wineApp;
-        setLayout(new BorderLayout());
-        
+		setLayout(new BorderLayout());
+
 		model = new WineTableModel(wineApp.getWines());
-		
 		tblResults = new JTable(model);
-		
+
 		// Table Styles
 		tblResults.setRowHeight(28);
 		tblResults.setShowGrid(true);
 		tblResults.setFont(new Font("Grandstander", Font.PLAIN, 14));
 		tblResults.setGridColor(Color.LIGHT_GRAY);
 		tblResults.setAutoCreateRowSorter(true);
-		
+
 		// Header
 		JTableHeader header = tblResults.getTableHeader();
 		header.setFont(new Font("Grandstander", Font.BOLD, 16));
 		header.setBackground(new java.awt.Color(255, 136, 90));
 		header.setForeground(java.awt.Color.WHITE);
-		
-		
-		JScrollPane scrollPane = new JScrollPane(tblResults);
-		add(scrollPane, BorderLayout.CENTER);
+
+		// Row Selection - load and show full wine details on click
+		tblResults.getSelectionModel().addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting()) {
+				int viewRow = tblResults.getSelectedRow();
+				if (viewRow >= 0) {
+					int modelRow = tblResults.convertRowIndexToModel(viewRow);
+					ParsedWineRow selectedWine = model.getWineAt(modelRow);
+					WineApp.showDetail(selectedWine);
+				}
+			}
+
+		});
+
+		add(new JScrollPane(tblResults), BorderLayout.CENTER);
 	}
-	
+
 	public void updateResults(List<ParsedWineRow> wines) {
-	    model.setWines(wines);
+		model.setWines(wines);
 	}
 
 }

@@ -4,7 +4,7 @@ public class Region {
 	private int id;
 	private String name;
 	private String country;
-	
+
 	public Region(int id, String name, String country) {
 		super();
 		this.id = id;
@@ -35,5 +35,5 @@ public class Region {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 }

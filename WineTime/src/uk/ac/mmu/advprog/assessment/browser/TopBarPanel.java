@@ -16,17 +16,17 @@ public class TopBarPanel extends JPanel {
     private JPanel leftPanel;
 
     public TopBarPanel() {
-        
+
     	setLayout(new BorderLayout());
     	setBackground(new Color(255, 136, 90));
     	setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    	
+
     	// Left side: Title and creation date
         lblTitle = new JLabel("WineTime");
         lblTitle.setFont(new Font("Grandstander", Font.BOLD, 36));
         lblTitle.setForeground(Color.WHITE);
-        
-        
+
+
         lblCreated = new JLabel("Est. 2026");
         lblCreated.setFont(new Font("Grandstander", Font.PLAIN, 18));
         lblCreated.setForeground(Color.WHITE);
@@ -36,9 +36,9 @@ public class TopBarPanel extends JPanel {
         leftPanel.setOpaque(false);
         leftPanel.add(lblTitle);
         leftPanel.add(lblCreated);
-        
+
         add(leftPanel, BorderLayout.WEST);
-        
+
         // Right side: Logo
         ImageIcon originalLogo = new ImageIcon(getClass().getResource("/assets/logo.png"));
         Image scaledLogo = originalLogo.getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);

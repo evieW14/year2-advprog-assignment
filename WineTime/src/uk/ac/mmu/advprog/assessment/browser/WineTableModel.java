@@ -10,11 +10,11 @@ public class WineTableModel extends AbstractTableModel{
 
 	private final String[] columnNames = {"Name", "Type", "Winery", "Country", "ABV"};
 	private List<ParsedWineRow> wines;
-	
+
 	public WineTableModel(List<ParsedWineRow> wines) {
 		this.wines = wines;
 	}
-	
+
 	@Override
 	public Object getValueAt(int row, int col) {
 		ParsedWineRow wine = wines.get(row);
@@ -27,26 +27,26 @@ public class WineTableModel extends AbstractTableModel{
 			default -> null;
 		};
 	}
-	
+
 	public ParsedWineRow getWineAt(int row) {
 		return wines.get(row);
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		return wines == null ? 0 : wines.size();
 	}
-	
+
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
-	
+
 	@Override
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
-	
+
 	public void setWines(List<ParsedWineRow> wines) {
 	    this.wines = wines;
 	    fireTableDataChanged();

@@ -5,7 +5,7 @@ public class Winery {
 	private String name;
 	private int region_id;
 	private String website;
-	
+
 	public Winery(int id, String name, int region_id, String website) {
 		super();
 		this.id = id;
@@ -45,5 +45,5 @@ public class Winery {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	
+
 }

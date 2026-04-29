@@ -3,7 +3,7 @@ package uk.ac.mmu.advprog.assessment.shared;
 public class Pairing {
 	private int id;
 	private String food;
-	
+
 	public Pairing(int id, String food) {
 		super();
 		this.id = id;
@@ -25,6 +25,6 @@ public class Pairing {
 	public void setFood(String food) {
 		this.food = food;
 	}
-	
-	
+
+
 }

@@ -14,95 +14,106 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class FilterPanel extends JPanel {
-	
+
 	// All ComboBox options are hardcoded but were retrieved from the dataset
-    private JTextField nameField;
-    private JTextField wineryField;
-    private JComboBox<String> typeBox;
-    private JTextField countryField;
-    private JComboBox<String> blendBox;
-    private JComboBox<String> bodyBox;
-    private JComboBox<String> acidityBox;
-    private JTextField grapeField;
-    private JTextField abvField;
-    
-    private JButton searchButton;
+	private JTextField nameField;
+	private JTextField wineryField;
+	private JComboBox<String> typeBox;
+	private JTextField countryField;
+	private JComboBox<String> blendBox;
+	private JComboBox<String> bodyBox;
+	private JComboBox<String> acidityBox;
+	private JTextField grapeField;
+	private JTextField abvField;
+	private JComboBox<String> abvOperatorBox;
 
-    public FilterPanel(WineApp wineApp) {
+	private JButton searchButton;
 
-        setLayout(new BorderLayout());
-        add(new JLabel("Search Filters"), BorderLayout.NORTH);
+	public FilterPanel(WineApp wineApp) {
 
-        JPanel container = new JPanel();
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(container, BorderLayout.CENTER);
+		setLayout(new BorderLayout());
+		add(new JLabel("Search Filters"), BorderLayout.NORTH);
 
-        // Row 1
-        JPanel row1 = new JPanel(new GridLayout(1, 4, 10, 10));
-        row1.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		add(container, BorderLayout.CENTER);
 
-        nameField = new JTextField();
-        wineryField = new JTextField();
-        typeBox = new JComboBox<>(new String[]{"Dessert", "Dessert/Port", "Red", "Rosé", "Sparkling", "White"});
+		// Row 1
+		JPanel row1 = new JPanel(new GridLayout(1, 4, 10, 10));
+		row1.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
-        row1.add(fieldBlock("Name", nameField));
-        row1.add(fieldBlock("Winery", wineryField));
-        row1.add(fieldBlock("Type", typeBox));
+		nameField = new JTextField();
+		wineryField = new JTextField();
+		typeBox = new JComboBox<>(
+				new String[] { "Any", "Dessert", "Dessert/Port", "Red", "Rosé", "Sparkling", "White" });
 
-        container.add(row1);
+		row1.add(fieldBlock("Name", nameField));
+		row1.add(fieldBlock("Winery", wineryField));
+		row1.add(fieldBlock("Type", typeBox));
 
-        // Row 2
-        JPanel row2 = new JPanel(new GridLayout(1, 4, 10, 10));
-        row2.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		container.add(row1);
 
-        countryField = new JTextField();
-        blendBox = new JComboBox<>(new String[]{"Assemblage/Blend", "Assemblage/Bordeaux Red Blend", "Assemblage/Port Blend", "Assemblage/Portuguese Red Blend", "Assemblage/Portuguese White Blend", "Varietal/100%"});
-        bodyBox = new JComboBox<>(new String[]{"Full-bodied", "Light-bodied", "Medium-bodied", "Very full-bodied", "Very light-bodied"});
+		// Row 2
+		JPanel row2 = new JPanel(new GridLayout(1, 4, 10, 10));
+		row2.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
-        row2.add(fieldBlock("Country", countryField));
-        row2.add(fieldBlock("Blend", blendBox));
-        row2.add(fieldBlock("Body", bodyBox));
-        container.add(row2);
-        
-        // Row 3
-        JPanel row3 = new JPanel(new GridLayout(1, 4, 10, 10));
-        row3.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
-        
-        acidityBox = new JComboBox<>(new String[]{"Low", "Medium", "High"});
-        grapeField = new JTextField();
-        abvField = new JTextField();
-        
-        row3.add(fieldBlock("Acidity", acidityBox));
-        row3.add(fieldBlock("Grape", grapeField));
-        row3.add(fieldBlock("ABV", abvField));
-        container.add(row3);
-        
-        // Search with filters
-        searchButton = new JButton("Search");
-        searchButton.addActionListener(e -> {
-        	FilterCriteria criteria = buildCriteria();
-        	try {
-				wineApp.applyFilters(criteria);
+		countryField = new JTextField();
+		blendBox = new JComboBox<>(
+				new String[] { "Any", "Assemblage/Blend", "Assemblage/Bordeaux Red Blend", "Assemblage/Port Blend",
+						"Assemblage/Portuguese Red Blend", "Assemblage/Portuguese White Blend", "Varietal/100%" });
+		bodyBox = new JComboBox<>(new String[] { "Any", "Full-bodied", "Light-bodied", "Medium-bodied",
+				"Very full-bodied", "Very light-bodied" });
+
+		row2.add(fieldBlock("Country", countryField));
+		row2.add(fieldBlock("Blend", blendBox));
+		row2.add(fieldBlock("Body", bodyBox));
+		container.add(row2);
+
+		// Row 3
+		JPanel row3 = new JPanel(new GridLayout(1, 4, 10, 10));
+		row3.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+
+		acidityBox = new JComboBox<>(new String[] { "Any", "Low", "Medium", "High" });
+		grapeField = new JTextField();
+
+		abvOperatorBox = new JComboBox<>(new String[] { ">", "<" });
+		abvField = new JTextField();
+		JPanel abvBlock = new JPanel(new BorderLayout(4, 0));
+		abvBlock.add(new JLabel("ABV"), BorderLayout.NORTH);
+		JPanel abvInputs = new JPanel(new GridLayout(1, 2, 4, 0));
+		abvInputs.add(abvOperatorBox);
+		abvInputs.add(abvField);
+		abvBlock.add(abvInputs, BorderLayout.CENTER);
+
+		row3.add(fieldBlock("Acidity", acidityBox));
+		row3.add(fieldBlock("Grape", grapeField));
+		row3.add(abvBlock);
+		container.add(row3);
+
+		// Search with filters
+		searchButton = new JButton("Search");
+		searchButton.addActionListener(e -> {
+			FilterCriteria criteria = buildCriteria();
+			try {
+				WineApp.applyFilters(criteria);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        });
-        
-        add(searchButton, BorderLayout.SOUTH);
-    }
+		});
 
+		add(searchButton, BorderLayout.SOUTH);
+	}
 
-    private JPanel fieldBlock(String label, JComponent input) {
-        JPanel p = new JPanel(new BorderLayout());
-        p.add(new JLabel(label), BorderLayout.NORTH);
-        p.add(input, BorderLayout.CENTER);
-        return p;
-    }
-    
-    private FilterCriteria buildCriteria() {
-    	FilterCriteria criteria = new FilterCriteria();
+	private JPanel fieldBlock(String label, JComponent input) {
+		JPanel p = new JPanel(new BorderLayout());
+		p.add(new JLabel(label), BorderLayout.NORTH);
+		p.add(input, BorderLayout.CENTER);
+		return p;
+	}
+
+	private FilterCriteria buildCriteria() {
+		FilterCriteria criteria = new FilterCriteria();
 		criteria.name = nameField.getText().trim();
 		criteria.winery = wineryField.getText().trim();
 		criteria.type = (String) typeBox.getSelectedItem();
@@ -111,7 +122,7 @@ public class FilterPanel extends JPanel {
 		criteria.body = (String) bodyBox.getSelectedItem();
 		criteria.acidity = (String) acidityBox.getSelectedItem();
 		criteria.grape = grapeField.getText().trim();
-		
+
 		String abvText = abvField.getText().trim();
 		if (!abvText.isEmpty()) {
 			try {
@@ -120,7 +131,7 @@ public class FilterPanel extends JPanel {
 				System.out.println("Invalid ABV value: " + abvText);
 			}
 		}
-		
+
 		return criteria;
-    }
+	}
 }
