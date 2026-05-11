@@ -21,7 +21,7 @@ public class WineApp {
 		// 2. Create the window
 		JFrame frame = new JFrame("WineTime");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setSize(1200, 700);
+		frame.setSize(1500, 800);
 
 		// 3. Create UI — UIManager builds all panels internally
 		frame.add(uiManager);

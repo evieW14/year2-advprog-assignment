@@ -9,6 +9,7 @@ import uk.ac.mmu.advprog.assessment.shared.DBConnection;
 
 public class Main {
     public static void main(String[] args) throws SQLException, IOException {
+    	long startTime = System.currentTimeMillis();
         System.out.println("Starting WineTime Importer...");
         System.out.println("Deleting existing database...");
         Files.deleteIfExists(Paths.get("data/winetime.db"));
@@ -25,9 +26,17 @@ public class Main {
 			e.printStackTrace();
         }
 
-//        System.out.println("Creating indices...");
-//        dbManager.createIndices();
-
-        System.out.println("Import complete!");
+        System.out.println("Importing ratings");
+        try {
+        	importer.runRatings(dbConnection.getConnection(), dbManager);
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        
+        System.out.println("Creating indices...");
+        dbManager.createIndices();
+        
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        System.out.printf ("Import complete! Total time: %dm %02ds%n ", elapsedTime / 60000, (elapsedTime % 60000) / 1000);
     }
 }

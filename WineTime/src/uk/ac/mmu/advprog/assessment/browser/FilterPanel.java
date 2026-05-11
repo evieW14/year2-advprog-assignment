@@ -127,6 +127,7 @@ public class FilterPanel extends JPanel {
 		if (!abvText.isEmpty()) {
 			try {
 				criteria.abv = Double.parseDouble(abvText);
+				criteria.abvOperator = (String) abvOperatorBox.getSelectedItem();
 			} catch (NumberFormatException e) {
 				System.out.println("Invalid ABV value: " + abvText);
 			}

@@ -13,8 +13,6 @@ public class Main {
 		DBConnection dbConnection = new DBConnection();
 		DatabaseManager dbManager = new DatabaseManager(dbConnection);
 
-		// 1. Create engine first — no UI yet
 		WineApp wineApp = new WineApp(dbManager);
-
 	}
 }
